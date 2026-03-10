@@ -42,9 +42,15 @@ export default function Home() {
               <span>Upload</span>
             </button>
 
-            <div className="relative w-[1300px] h-[900px] mt-130">
+            <div className="relative w-full max-w-[1000px] h-[740px] mt-130 mx-auto">
+              <Image src="/resize-three.png" alt="Evan" fill className="object-cover"/>
+            </div>
+
+            <div className="relative w-[1300px] h-[900px] mt-50">
               <Image src="/resize-two.png" alt="Evan" fill className="object-cover"/>
             </div>
+
+            
 
             
 
