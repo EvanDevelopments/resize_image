@@ -22,19 +22,20 @@ export default function Home() {
       console.log("Processing:", file.name);
       const formData = new FormData();
 
-      formData.append("image", file);
+      formData.append("file", file);
       formData.append("width", "800");
 
       try {
-        const response = await fetch("http://localhost:8000/api/resize", {
+        const response = await fetch("http://localhost:8080/api/resize", {
           method: "POST",
           body:formData,
         });
 
         if (response.ok){
-          const blob = await response.blob();
-          const url = URL.createObjectURL(blob);
-          console.log("Resized image ready at:", url);
+          const message = await response.text();
+          console.log("Success from Backend:", message);
+          // const url = URL.createObjectURL(blob);
+          // console.log("Resized image ready at:", url);
         } else {
           console.error("The server didn't like that. Status:", response.status);
         }
