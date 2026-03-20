@@ -88,8 +88,8 @@ export default function Home() {
               <div className="mt-10 p-4 bg-white rounded-lg shadow-xl">
                 <h2 className="text-[#2063f5] font-bold mb-2">Resized Result:</h2>
                 <img src={resizedImage} alt="Resized" className="rounded border-2 border-[#2063f5]" />
-                <button onClick={downloadImage}className="mt-4 bg-[#2063f5] hover:bg-green-600 text-white font-bold py-2 px-6 rounded">Download PNG</button>
-                <button onClick={() => setResizedImage(null)} className="text-xs text-red-500 mt-2 underline">Clear</button>
+                <button onClick={downloadImage}className="cursor-pointer mt-4 bg-[#2063f5] hover:brightness-110 hover:shadow-lg hover:shadow-blue-200 transition-all active:scale-95 text-white font-bold py-2 px-6 rounded">Download PNG</button>
+                <button onClick={() => setResizedImage(null)} className="border-2 border-[#D3D3D3] cursor-pointer mt-4 bg-white hover:brightness-110 hover:shadow-lg hover:shadow-blue-200 hover:border-[#2063f5] hover:text-[#2063f5] transition-all active:scale-95 text-gray-700 font-bold py-2 px-6 rounded ml-4">Clear</button>
               </div>
             )}
 
