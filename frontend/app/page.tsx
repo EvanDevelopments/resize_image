@@ -45,9 +45,9 @@ export default function Home() {
         });
 
         if (response.ok){
-          const iamgeBlob = await response.blob();
+          const zipBlob = await response.blob();
           console.log("Success from Backend:", file);
-          const url = URL.createObjectURL(iamgeBlob);
+          const url = URL.createObjectURL(zipBlob);
           console.log("Resized image ready at:", url);
           setResizedImage(url);
         } else {
