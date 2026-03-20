@@ -4,7 +4,7 @@ import Typewriter from 'typewriter-effect';
 import Footer from '@/components/footer';
 import Heading from '@/components/heading';
 import { useEffect } from "react";
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import Image from 'next/image';
 import { form } from "framer-motion/client";
@@ -13,6 +13,19 @@ import { form } from "framer-motion/client";
 
 
 export default function Home() {
+
+  const downloadImage = () => {
+    if (resizedImage === null) return;
+    const link = document.createElement("a");
+    link.href = resizedImage;
+    link.download = "resized-image.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+  }
+
+  const [resizedImage, setResizedImage] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -32,10 +45,11 @@ export default function Home() {
         });
 
         if (response.ok){
-          const message = await response.text();
-          console.log("Success from Backend:", message);
-          // const url = URL.createObjectURL(blob);
-          // console.log("Resized image ready at:", url);
+          const iamgeBlob = await response.blob();
+          console.log("Success from Backend:", file);
+          const url = URL.createObjectURL(iamgeBlob);
+          console.log("Resized image ready at:", url);
+          setResizedImage(url);
         } else {
           console.error("The server didn't like that. Status:", response.status);
         }
@@ -69,6 +83,15 @@ export default function Home() {
               <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
               <span>Upload</span>
             </button>
+
+            {resizedImage && (
+              <div className="mt-10 p-4 bg-white rounded-lg shadow-xl">
+                <h2 className="text-[#2063f5] font-bold mb-2">Resized Result:</h2>
+                <img src={resizedImage} alt="Resized" className="rounded border-2 border-[#2063f5]" />
+                <button onClick={downloadImage}className="mt-4 bg-[#2063f5] hover:bg-green-600 text-white font-bold py-2 px-6 rounded">Download PNG</button>
+                <button onClick={() => setResizedImage(null)} className="text-xs text-red-500 mt-2 underline">Clear</button>
+              </div>
+            )}
 
 
             <div className="relative w-full max-w-[1000px] h-[540px] mt-110 mx-auto">

@@ -2,6 +2,8 @@ package com.resizer.backend;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import net.coobird.thumbnailator.Thumbnails;
+import java.io.ByteArrayOutputStream;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -9,12 +11,15 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImageController {
 
     @PostMapping("/api/resize")
-    public String handleUpload(@RequestParam("file") MultipartFile file){
+    public byte[] handleUpload(@RequestParam("file") MultipartFile file) throws Exception{
 
-        String name = file.getOriginalFilename();
-        long size = file.getSize();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-        return "I recieved "+name+" which is "+size+" bytes!";
+        Thumbnails.of(file.getInputStream()).forceSize(500,500).outputFormat("png").toOutputStream(outputStream);
+        Thumbnails.of(file.getInputStream()).forceSize(1000,1000).outputFormat("png").toOutputStream(outputStream);
+        Thumbnails.of(file.getInputStream()).forceSize(2000,2000).outputFormat("png").toOutputStream(outputStream);
+
+        return outputStream.toByteArray();
 
     }
     
