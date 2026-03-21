@@ -18,7 +18,7 @@ export default function Home() {
     if (resizedImage === null) return;
     const link = document.createElement("a");
     link.href = resizedImage;
-    link.download = "resized-image.png";
+    link.download = "resized-bundle.zip";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -45,9 +45,9 @@ export default function Home() {
         });
 
         if (response.ok){
-          const zipBlob = await response.blob();
+          const imageBlob = await response.blob();
           console.log("Success from Backend:", file);
-          const url = URL.createObjectURL(zipBlob);
+          const url = URL.createObjectURL(imageBlob);
           console.log("Resized image ready at:", url);
           setResizedImage(url);
         } else {
